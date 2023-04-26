@@ -82,3 +82,23 @@ Deno.test("two links, different properties, single child", async () => {
 
   assertEquals(actual, expected);
 });
+
+Deno.test("three links, empty properties, single child", async () => {
+  const input = "<a>foo</a><a>bar</a><a>baz</a>";
+  const expected = "[foobarbaz]()\n";
+
+  const actual = (await pipeline
+    .process(input)).toString();
+
+  assertEquals(actual, expected);
+});
+
+Deno.test("three links, empty properties, single child", async () => {
+  const input = "<a>foo</a><a>bar</a><a>baz</a><a>buz</a>";
+  const expected = "[foobarbazbuz]()\n";
+
+  const actual = (await pipeline
+    .process(input)).toString();
+
+  assertEquals(actual, expected);
+});

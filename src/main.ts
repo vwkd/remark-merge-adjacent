@@ -7,6 +7,9 @@ const NODES = ["emphasis", "link", "strong"];
  * Merges children of identical sibling node with same properties
  * with children of node and removes sibling node from tree
  *
+ * Return previous index to traverse node again in case there are
+ * more sibling nodes to merge with
+ *
  * Note: doesn't need to also check `siblingBefore`
  * since always NLR traversal (by default)
  */
@@ -26,6 +29,8 @@ const remarkMergeAdjacent: Plugin<[], Root> = () => {
         node.children = [...node.children, ...siblingAfter.children];
 
         parent.children.splice(index + 1, 1);
+
+        return index;
       }
     });
   };
