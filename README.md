@@ -13,10 +13,24 @@ Remark plugin that merges adjacent identical inline nodes
 
 ## Example
 
+```js
+import { unified, rehypeParse, rehypeRemark, remarkStringify } from "./deps.ts";
+import remarkMergeAdjacent from "./src/main.ts";
+
+const result = (await unified()
+  .use(rehypeParse, { fragment: true })
+  .use(rehypeRemark)
+  .use(remarkMergeAdjacent)
+  .use(remarkStringify)
+  .process(`<strong>foo</strong><strong>bar</strong>`))
+  .toString();
+console.log(result);
+```
+
 Before
 
-```md
-**foo****bar**
+```html
+<strong>foo</strong><strong>bar</strong>
 ```
 
 After
